@@ -1,4 +1,5 @@
 import InputTexto from '../../../Componentes/Inputs/InputTexto.jsx'
+import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../../Temas.jsx'
@@ -10,6 +11,11 @@ import api from '../../../services/api.jsx'
 export default function MyApp() {
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
+    let navigate = useNavigate();
+    const routeChangeBack = () =>{
+        let path = `/itens`;
+        navigate(path);
+    }
 
     const handleNome = (event) => {
         setNome(event);
@@ -41,21 +47,21 @@ export default function MyApp() {
     <ThemeProvider theme={theme}>
         <Typography variant="h3">Cadastro de Item</Typography>
         <div>
-            <InputTexto 
+            <InputTexto
                 label='Nome'
                 value={nome}
-                onChange={handleNome} 
+                onChange={handleNome}
             />
-            <InputTexto 
+            <InputTexto
                 label='Descrição'
                 value={descricao}
-                onChange={handleDescricao} 
+                onChange={handleDescricao}
             />
             <Box display="flex" justifyContent="space-between">
-                <Botao variant="outlined" onClick={print} label="Voltar" />
+                <Botao variant="outlined" onClick={routeChangeBack} label="Voltar" />
                 <Botao variant="contained" onClick={criarItem} label="Criar" />
             </Box>
-            
+
         </div>
     </ThemeProvider>
   );

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../../Temas.jsx";
 import Typography from "@mui/material/Typography";
@@ -9,6 +10,16 @@ import { DataGrid } from "@mui/x-data-grid";
 
 export default function Index() {
   const [itens, setItens] = useState([]);
+  let navigate = useNavigate();
+  const routeChangeCreate = () =>{
+    let path = `criar`;
+    navigate(path);
+  }
+  const routeChangeBack = () =>{
+    let path = `/`;
+    navigate(path);
+  }
+
 
   useEffect(() => {
     async function fetchItens() {
@@ -46,7 +57,14 @@ export default function Index() {
           <Botao
             variant="outlined"
             label="Voltar"
-            onClick={() => console.log("Voltar")}
+            onClick={routeChangeBack}
+          />
+        </Box>
+        <Box display="flex" justifyContent="flex-end" mt={2}>
+          <Botao
+            variant="outlined"
+            label="Criar Novo"
+            onClick={routeChangeCreate}
           />
         </Box>
       </Box>
