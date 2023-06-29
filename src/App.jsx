@@ -1,15 +1,11 @@
-import './App.css'
-import CriarItens from './Paginas/Itens/CriarItens/index.jsx'
-import { Box } from '@mui/material';
+import "./App.css";
 
 function App() {
-
   return (
-      <Box>
-        <CriarItens/>
-      </Box>
-
-  )
+    <div className="App">
+      <h1>My app</h1>
+    </div>
+  );
 }
 
-export default App
+export default App;
