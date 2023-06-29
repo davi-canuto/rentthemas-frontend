@@ -39,7 +39,7 @@ export default function Index() {
         minHeight="100vh"
       >
         <Typography variant="h3">Listagem de Itens</Typography>
-        <div style={{ height: 400, width: "100%" }}>
+        <div style={{ height: 400, width: "130%" }}>
           <DataGrid rows={itens} columns={columns} checkboxSelection />
         </div>
         <Box display="flex" justifyContent="flex-end" mt={2}>
