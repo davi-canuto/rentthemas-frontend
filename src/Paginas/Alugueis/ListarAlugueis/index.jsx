@@ -1,13 +1,13 @@
 import Typography from '@mui/material/Typography';
-import theme from '../../Temas.jsx'
+import theme from '../../../Temas.jsx'
 import { ThemeProvider } from '@mui/material/styles';
 
-const temas = () => {
+const index = () => {
   return (
     <ThemeProvider theme={theme}>
-        <Typography variant="h3">Falta implementar - Temas</Typography>
+        <Typography variant="h3">Falta implementar - Alugueis</Typography>
     </ThemeProvider>
   )
 }
 
-export default temas;
+export default index;

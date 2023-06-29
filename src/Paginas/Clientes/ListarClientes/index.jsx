@@ -1,13 +1,13 @@
 import Typography from '@mui/material/Typography';
-import theme from '../../Temas.jsx'
+import theme from '../../../Temas.jsx'
 import { ThemeProvider } from '@mui/material/styles';
 
-const alugueis = () => {
+const index = () => {
   return (
     <ThemeProvider theme={theme}>
-        <Typography variant="h3">Falta implementar - Alugueis</Typography>
+        <Typography variant="h3">Falta implementar - Clientes</Typography>
     </ThemeProvider>
   )
 }
 
-export default alugueis;
+export default index;
