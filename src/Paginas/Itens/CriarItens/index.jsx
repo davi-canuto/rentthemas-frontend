@@ -15,6 +15,11 @@ export default function MyApp() {
     const navigate = useNavigate();
     const props = location.state ? location.state : null;
 
+    const routeChangeBack = () =>{
+        let path = `/itens`;
+        navigate(path);
+    }
+
     const handleNome = (event) => {
         setNome(event);
     };
@@ -22,9 +27,7 @@ export default function MyApp() {
     const handleDescricao= (event) => {
         setDescricao(event);
     };
-    const voltar = () => {
-        navigate("/itens");
-    };
+
     async function criarItem (){
         if (nome == '' || descricao == ''){
             console.log('não pode')
@@ -61,21 +64,20 @@ export default function MyApp() {
     <ThemeProvider theme={theme}>
         <Typography variant="h3">{ props ? "Edição" : "Cadastro"} de Item</Typography>
         <div>
-            <InputTexto 
+            <InputTexto
                 label='Nome'
                 value={nome}
-                onChange={handleNome} 
+                onChange={handleNome}
             />
-            <InputTexto 
+            <InputTexto
                 label='Descrição'
                 value={descricao}
-                onChange={handleDescricao} 
+                onChange={handleDescricao}
             />
             <Box display="flex" justifyContent="space-between">
-                <Botao variant="outlined" onClick={voltar} label="Voltar" />
+                <Botao variant="outlined" onClick={routeChangeBack} label="Voltar" />
                 <Botao variant="contained" onClick={criarItem} label={props ? "Editar" : "Criar"} />
             </Box>
-            
         </div>
     </ThemeProvider>
   );

@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../../Temas.jsx";
 import Typography from "@mui/material/Typography";
 import { Box, Grid, Container, TextField } from "@mui/material";
 import Botao from "../../../Componentes/Botao/Botao.jsx";
 import api from "../../../services/api.jsx";
-import { useNavigate } from 'react-router-dom';
 import './index.css'
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -64,7 +64,7 @@ export default function Index() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container>
+      <Container sx={{ width: '900px' }}>
         <Typography mb={2} variant="h3">Itens</Typography>
         <Grid container justifyContent={'space-between'} ml={1.8} p={1}>
           <TextField
@@ -87,7 +87,7 @@ export default function Index() {
             overflowY: "scroll"
           }}>
           {dadosFiltrados.map((elemento) => (
-            <Box display="flex" alignItems="center" justifyContent={'space-between'} boxShadow={3} key={elemento.id} m={1.3} p={1} sx={{ backgroundColor: "#f8eeee", borderRadius: 1, width: '868px', height: '38px' }}>
+            <Box display="flex" alignItems="center" justifyContent={'space-between'} boxShadow={3} key={elemento.id} m={1.3} p={1} sx={{ backgroundColor: "#f8eeee", borderRadius: 1, height: '38px' }}>
               <Typography ml={2} variant="subtitle1">{elemento.name}</Typography>
               <Box mt={0.6}>
                 <EditIcon onClick={() => editarItem(elemento.id)} style={{ color: '#3B1D70', marginRight:'10px', cursor: 'pointer' }} />
