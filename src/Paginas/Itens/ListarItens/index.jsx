@@ -2,13 +2,52 @@ import { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../../Temas.jsx";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
+import { Box, Grid, Container, TextField } from "@mui/material";
 import Botao from "../../../Componentes/Botao/Botao.jsx";
 import api from "../../../services/api.jsx";
-import { DataGrid } from "@mui/x-data-grid";
+import { useNavigate } from 'react-router-dom';
+import './index.css'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Index() {
   const [itens, setItens] = useState([]);
+  const [filtro, setFiltro] = useState('');
+  const navigate = useNavigate();
+  
+  const filtrarDados = (event) => {
+    setFiltro(event.target.value);
+  };
+
+  const mudarRota = () => {
+     navigate("/itens/criar");
+  };
+
+  const editarItem = (id) => {
+    const props = {
+      id: id
+    };
+    navigate('/itens/editar', { state: props });
+ };
+
+  async function deletarItem (id){
+    try {
+      const response = await api.delete(`itens/${id}`);
+      const itens = await api.get("itens/");
+      setItens(itens.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+
+  const dadosFiltrados = itens.filter((item) => {
+      if (item.name && item.name.toLowerCase().includes(filtro.toLowerCase())){
+        return item
+      }
+    }
+    
+  );
 
   useEffect(() => {
     async function fetchItens() {
@@ -23,33 +62,42 @@ export default function Index() {
     fetchItens();
   }, []);
 
-  const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "name", headerName: "Nome", width: 150 },
-    { field: "description", headerName: "Descrição", width: 250 },
-  ];
-
   return (
     <ThemeProvider theme={theme}>
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        minHeight="100vh"
-      >
-        <Typography variant="h3">Listagem de Itens</Typography>
-        <div style={{ height: 400, width: "130%" }}>
-          <DataGrid rows={itens} columns={columns} checkboxSelection />
-        </div>
-        <Box display="flex" justifyContent="flex-end" mt={2}>
-          <Botao
+      <Container>
+        <Typography mb={2} variant="h3">Itens</Typography>
+        <Grid container justifyContent={'space-between'} ml={1.8} p={1}>
+          <TextField
+            label="Buscar"
+            value={filtro}
+            onChange={filtrarDados}
             variant="outlined"
-            label="Voltar"
-            onClick={() => console.log("Voltar")}
+            sx={{
+              width: '50%'
+            }}
           />
+          <Box mr={3}><Botao variant="contained" onClick={mudarRota} label="Novo Item" /></Box>
+          
+        </Grid>
+        <Box sx={{ 
+            display: "flex",
+            flexDirection: "column",
+            height: 500,
+            overflow: "hidden",
+            overflowY: "scroll"
+          }}>
+          {dadosFiltrados.map((elemento) => (
+            <Box display="flex" alignItems="center" justifyContent={'space-between'} boxShadow={3} key={elemento.id} m={1.3} p={1} sx={{ backgroundColor: "#f8eeee", borderRadius: 1, width: '868px', height: '38px' }}>
+              <Typography ml={2} variant="subtitle1">{elemento.name}</Typography>
+              <Box mt={0.6}>
+                <EditIcon onClick={() => editarItem(elemento.id)} style={{ color: '#3B1D70', marginRight:'10px', cursor: 'pointer' }} />
+                <DeleteIcon onClick={() => deletarItem(elemento.id)} style={{ color: 'red', cursor: 'pointer' }} />
+              </Box>
+            </Box>
+          ))}
         </Box>
-      </Box>
+        
+      </Container>
     </ThemeProvider>
   );
 }

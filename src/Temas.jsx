@@ -15,6 +15,10 @@ const theme = createTheme({
     h6: {
       fontSize: 26,
       color: 'white'
+    },
+    subtitle1: {
+      color: '#3B1D70',
+      fontSize: 20
     }
   }
 });

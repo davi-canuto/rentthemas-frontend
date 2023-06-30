@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 
 function App() {
   return (
-    <Box>
+    <Box sx={{ minHeight: "65vh" }}>
       <ListarItens />
     </Box>
   );
