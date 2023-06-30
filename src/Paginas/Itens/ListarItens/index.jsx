@@ -32,7 +32,7 @@ export default function Index() {
 
   async function deletarItem (id){
     try {
-      const response = await api.delete(`itens/${id}`);
+      const response = await api.delete(`itens/${id}/`);
       const itens = await api.get("itens/");
       setItens(itens.data);
     } catch (error) {
