@@ -33,6 +33,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           {/* <Route path="/alugueis/criar" element={<CriarAlugueis />} /> */}
           <Route path="/temas" element={<ListarTemas />} />
           <Route path="/temas/criar" element={<CriarTemas />} />
+          <Route path="/temas/editar" element={<CriarTemas />} />
         </Routes>
       </Router>
     </Container>

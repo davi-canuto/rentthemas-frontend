@@ -79,6 +79,12 @@ export default function Index() {
           <Box mr={3}><Botao variant="contained" onClick={mudarRota} label="Novo Item" /></Box>
           
         </Grid>
+        <Box display="flex" alignItems="center" justifyContent={'space-between'} m={1.3} p={1} sx={{ backgroundColor: "#f8eeee", borderRadius: 1, height: '38px' }}>
+          <Typography ml={2} variant="subtitle1">Nome</Typography>
+          <Box>
+            <Typography mr={2} variant="subtitle1">Ações</Typography>
+          </Box>
+        </Box>
         <Box sx={{ 
             display: "flex",
             flexDirection: "column",
