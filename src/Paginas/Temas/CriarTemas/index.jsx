@@ -109,26 +109,28 @@ export default function MyApp() {
           value={price}
           onChange={handlePrice}
         />
-        <Box display="flex" justifyContent="space-between">
-            <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="demo-multiple-checkbox-label">Itens</InputLabel>
-            <Select
-                labelId="demo-multiple-checkbox-label"
-                id="demo-multiple-checkbox"
-                multiple
-                value={itens}
-                onChange={handleItens}
-                input={<OutlinedInput label="Itens" />}
-                renderValue={(selected) => selected.map(item => item.name).join(', ')}
-                MenuProps={MenuProps}
-            >
-                {itens.map((item) => (
-                <MenuItem key={item.id} value={item}>
-                    <Checkbox checked={itens.some(selectedItem => selectedItem.id === item.id)} />
-                    <ListItemText primary={item.name} />
-                </MenuItem>
-                ))}
-            </Select>
+        <Box justifyContent="space-between" sx={{ marginY: 2 }}>
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id="demo-multiple-checkbox-label">Itens</InputLabel>
+              <Select
+                  labelId="demo-multiple-checkbox-label"
+                  id="demo-multiple-checkbox"
+                  multiple
+                  value={itens}
+                  color="inputs"
+                  onChange={handleItens}
+                  input={<OutlinedInput label="Itens" />}
+                  renderValue={(selected) => selected.map(item => item.name).join(', ')}
+                  MenuProps={MenuProps}
+                  sx={{ borderColor: "#6750A4", color: '#6750A4' }}
+              >
+                  {itens.map((item) => (
+                    <MenuItem key={item.id} value={item} style={{ backgroundColor: "#6750A4" }} >
+                        <Checkbox checked={itens.some(selectedItem => selectedItem.id === item.id)} />
+                        <ListItemText primary={item.name} sx={{ color:'white' }} />
+                    </MenuItem>
+                  ))}
+              </Select>
             </FormControl>
         </Box>
         <Box display="flex" justifyContent="space-between">
