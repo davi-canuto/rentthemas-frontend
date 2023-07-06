@@ -8,7 +8,7 @@ import ListarClientes from "./Paginas/Clientes/ListarClientes/index.jsx";
 // import CriarClientes from "./Paginas/Clientes/CriarClientes/component.jsx";
 
 import ListarTemas from "./Paginas/Temas/ListarTemas/index.jsx";
-// import CriarTemas from "./Paginas/Temas/CriarTemas/index.jsx";
+import CriarTemas from "./Paginas/Temas/CriarTemas/index.jsx";
 
 import ListarAlugueis from "./Paginas/Alugueis/ListarAlugueis/index.jsx";
 // import CriarAlugueis from "./Paginas/Alugueis/CriarAlugueis/index.jsx";
@@ -32,7 +32,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/alugueis" element={<ListarAlugueis />} />
           {/* <Route path="/alugueis/criar" element={<CriarAlugueis />} /> */}
           <Route path="/temas" element={<ListarTemas />} />
-          {/* <Route path="/temas/criar" element={<CriarTemas />} /> */}
+          <Route path="/temas/criar" element={<CriarTemas />} />
         </Routes>
       </Router>
     </Container>

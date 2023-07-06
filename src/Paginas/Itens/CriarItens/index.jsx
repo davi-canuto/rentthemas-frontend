@@ -28,7 +28,7 @@ export default function MyApp() {
         setDescricao(event);
     };
 
-    async function criarItem (){
+    async function submit (){
         if (nome == '' || descricao == ''){
             console.log('não pode')
             return
@@ -38,8 +38,8 @@ export default function MyApp() {
                 "name": nome,
                 "description": descricao
             }
-            const response = await api.post('itens/', data);
-            console.log(response.data)
+            const response = props ? api.put(`itens/${props.id}/`, data) : await api.post('itens/', data);
+            routeChangeBack()
         } catch (error) {
             console.error(error);
         }
@@ -49,7 +49,7 @@ export default function MyApp() {
         async function fetchItens() {
             if(props){
                 try {
-                    const response = await api.get(`itens/${props.id}`);
+                    const response = await api.get(`itens/${props.id}/`);
                     setNome(response.data.name)
                     setDescricao(response.data.description)
                 } catch (error) {
@@ -76,7 +76,7 @@ export default function MyApp() {
             />
             <Box display="flex" justifyContent="space-between">
                 <Botao variant="outlined" onClick={routeChangeBack} label="Voltar" />
-                <Botao variant="contained" onClick={criarItem} label={props ? "Editar" : "Criar"} />
+                <Botao variant="contained" onClick={submit} label={props ? "Editar" : "Criar"} />
             </Box>
         </div>
     </ThemeProvider>
