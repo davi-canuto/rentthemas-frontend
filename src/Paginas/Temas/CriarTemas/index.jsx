@@ -149,6 +149,8 @@ export default function MyApp() {
         />
         <InputTexto
           label='Preço'
+          adornment='R$'
+          type="number"
           value={price}
           onChange={handlePrice}
         />
