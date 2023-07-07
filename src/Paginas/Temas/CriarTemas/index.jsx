@@ -69,7 +69,7 @@ export default function MyApp() {
         "price": price,
         "itens": selectedItens.map(item => item.id)
       };
-      const response = props ? await api.put(`themes/${props.id}/`, data) : await api.post('themes/', data);
+      props ? await api.put(`themes/${props.id}/`, data) : await api.post('themes/', data);
       routeChangeBack();
     } catch (error) {
       console.error(error);
@@ -107,20 +107,23 @@ export default function MyApp() {
       try {
         const first = await api.get('itens/');
         setItens(first.data);
-        const response = await api.get(`themes/${props.id}/`);
-        handleNome(response.data.name)
-        handleCor(response.data.color)
-        handlePrice(response.data.price)
-        let arr = []
+        if (props.id){
+          const response = await api.get(`themes/${props.id}/`);
+          handleNome(response.data.name)
+          handleCor(response.data.color)
+          handlePrice(response.data.price)
+          let arr = []
 
-        first.data.forEach(function(item){
-          let id = item.id;
-          if(response.data.itens.includes(id)){
-            arr.push(item)
-          }
-        })
+          first.data.forEach(function(item){
+            let id = item.id;
+            if(response.data.itens.includes(id)){
+              arr.push(item)
+            }
+          })
 
-        setSelectedItens(arr)
+          setSelectedItens(arr)
+        }
+        
       } catch (error) {
         console.error(error);
       }

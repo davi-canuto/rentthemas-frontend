@@ -32,7 +32,7 @@ export default function Index() {
 
   async function deletarTema (id){
     try {
-      const response = await api.delete(`themes/${id}/`);
+      await api.delete(`themes/${id}/`);
       const temas = await api.get("themes/");
       setTemas(temas.data);
     } catch (error) {
