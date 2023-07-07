@@ -103,7 +103,7 @@ export default function MyApp() {
 
 
   useEffect(() => {
-    async function fetchItens() {
+    async function fetchData() {
       try {
         const first = await api.get('itens/');
         setItens(first.data);
@@ -126,7 +126,7 @@ export default function MyApp() {
       }
     }
 
-    fetchItens();
+    fetchData();
   }, [props]);
 
   return (
