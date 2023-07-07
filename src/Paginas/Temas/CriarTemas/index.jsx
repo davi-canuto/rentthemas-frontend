@@ -1,12 +1,9 @@
-import * as React from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
-
 import InputTexto from '../../../Componentes/Inputs/InputTexto.jsx';
 import { useState, useEffect } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
@@ -104,42 +101,33 @@ export default function MyApp() {
     }
   }
 
-  async function pegar_itens(recebido){
-    let arr = []
-
-    itens.forEach(function(item){
-      let id = item.id;
-      if(recebido.includes(id)){
-        arr.push(item)
-      }
-    })
-
-    setSelectedItens(arr)
-  }
 
   useEffect(() => {
     async function fetchItens() {
       try {
-        const response = await api.get('itens/');
-        setItens(response.data);
+        const first = await api.get('itens/');
+        setItens(first.data);
+        const response = await api.get(`themes/${props.id}/`);
+        handleNome(response.data.name)
+        handleCor(response.data.color)
+        handlePrice(response.data.price)
+        let arr = []
+
+        first.data.forEach(function(item){
+          let id = item.id;
+          if(response.data.itens.includes(id)){
+            arr.push(item)
+          }
+        })
+
+        setSelectedItens(arr)
       } catch (error) {
         console.error(error);
       }
-      if(props){
-        try {
-            const response = await api.get(`themes/${props.id}/`);
-            handleNome(response.data.name)
-            handleCor(response.data.color)
-            handlePrice(response.data.price)
-            pegar_itens(response.data.itens)
-        } catch (error) {
-          console.error(error);
-        }
-    }
     }
 
     fetchItens();
-  }, []);
+  }, [props]);
 
   return (
     <ThemeProvider theme={theme}>
