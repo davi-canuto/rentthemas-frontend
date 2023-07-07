@@ -32,8 +32,8 @@ export default function Index() {
 
   async function deletarTema (id){
     try {
-      const response = await api.delete(`temas/${id}/`);
-      const temas = await api.get("temas/");
+      const response = await api.delete(`themes/${id}/`);
+      const temas = await api.get("themes/");
       setTemas(temas.data);
     } catch (error) {
       console.error(error);
@@ -79,6 +79,17 @@ export default function Index() {
           <Box mr={3}><Botao variant="contained" onClick={mudarRota} label="Novo Tema" /></Box>
 
         </Grid>
+        <Grid container alignItems="center"  m={1.3} p={1} sx={{ backgroundColor: "#f8eeee", borderRadius: 1 }}>
+          <Grid item xs={3.3}>
+            <Typography ml={2} variant="subtitle1">Nome</Typography>
+          </Grid>
+          <Grid item xs={6.5}>
+            <Typography  variant="subtitle1">Preço (R$)</Typography>
+          </Grid>  
+          <Grid item xs={1}>
+            <Typography  variant="subtitle1">Ações</Typography>
+          </Grid> 
+        </Grid>
         <Box sx={{
             display: "flex",
             flexDirection: "column",
@@ -87,14 +98,20 @@ export default function Index() {
             overflowY: "scroll"
           }}>
           {dadosFiltrados.map((elemento) => (
-            <Box display="flex" alignItems="center" justifyContent={'space-between'} boxShadow={3} key={elemento.id} m={1.3} p={1} sx={{ backgroundColor: "#f8eeee", borderRadius: 1, height: '38px' }}>
-              <Typography ml={2} variant="subtitle1">{elemento.name}</Typography>
-              <Typography ml={2} variant="subtitle1">{elemento.price}</Typography>
-              <Box mt={0.6}>
-                <EditIcon onClick={() => editarTema(elemento.id)} style={{ color: '#3B1D70', marginRight:'10px', cursor: 'pointer' }} />
-                <DeleteIcon onClick={() => deletarTema(elemento.id)} style={{ color: 'red', cursor: 'pointer' }} />
-              </Box>
-            </Box>
+            <Grid container alignItems="center"  boxShadow={3} key={elemento.id} m={1.3} p={1} sx={{ backgroundColor: "#f8eeee", borderRadius: 1 }}>
+              <Grid item xs={3.3}>
+                <Typography ml={2} variant="subtitle1">{elemento.name}</Typography>
+              </Grid>
+              <Grid item xs={6.5}>
+              <Typography variant="subtitle1">R$ {elemento.price},00</Typography>
+              </Grid>
+              <Grid item xs={2} ml={1}>
+                <Box mt={0.6}>
+                  <EditIcon onClick={() => editarTema(elemento.id)} style={{ color: '#3B1D70', marginRight:'10px', cursor: 'pointer' }} />
+                  <DeleteIcon onClick={() => deletarTema(elemento.id)} style={{ color: 'red', cursor: 'pointer' }} />
+                </Box>
+              </Grid>      
+            </Grid>
           ))}
         </Box>
 

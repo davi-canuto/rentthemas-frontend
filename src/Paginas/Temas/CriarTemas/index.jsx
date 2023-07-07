@@ -32,6 +32,7 @@ export default function MyApp() {
   const [nome, setName] = useState('');
   const [cor, setCor] = useState('');
   const [price, setPrice] = useState('');
+  const [selectedItens, setSelectedItens] = useState([]);
   const [itens, setItens] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -58,6 +59,10 @@ export default function MyApp() {
     setItens(event.target.value);
   };
 
+  const handleSelectedItens = (event) => {
+    setSelectedItens(event.target.value);
+  };
+
   async function submit() {
     if (nome === '') {
       console.log('não pode');
@@ -77,6 +82,33 @@ export default function MyApp() {
     }
   }
 
+  function cor_option(item) {
+    let bg = "white"
+    let text = "black"
+    if (selectedItens.includes(item)){
+      bg = "#6750A4"
+      text = "white"
+    }
+
+    return {
+      backgroundColor: bg,
+      color: text
+    }
+  }
+
+  async function pegar_itens(recebido){
+    let arr = []
+
+    itens.forEach(function(item){
+      let id = item.id;
+      if(recebido.includes(id)){
+        arr.push(item)
+      }
+    })
+
+    setSelectedItens(arr)
+  }
+
   useEffect(() => {
     async function fetchItens() {
       try {
@@ -85,6 +117,17 @@ export default function MyApp() {
       } catch (error) {
         console.error(error);
       }
+      if(props){
+        try {
+            const response = await api.get(`themes/${props.id}/`);
+            handleNome(response.data.name)
+            handleCor(response.data.color)
+            handlePrice(response.data.price)
+            pegar_itens(response.data.itens)
+        } catch (error) {
+          console.error(error);
+        }
+    }
     }
 
     fetchItens();
@@ -106,28 +149,30 @@ export default function MyApp() {
         />
         <InputTexto
           label='Preço'
+          adornment='R$'
+          type="number"
           value={price}
           onChange={handlePrice}
         />
         <Box justifyContent="space-between" sx={{ marginY: 2 }}>
             <FormControl sx={{ width: '100%' }}>
-              <InputLabel id="demo-multiple-checkbox-label">Itens</InputLabel>
+              <InputLabel style={{ color:'#6750A4' }} id="demo-multiple-checkbox-label">Itens</InputLabel>
               <Select
                   labelId="demo-multiple-checkbox-label"
                   id="demo-multiple-checkbox"
                   multiple
-                  value={itens}
+                  value={selectedItens}
                   color="inputs"
-                  onChange={handleItens}
+                  onChange={handleSelectedItens}
                   input={<OutlinedInput label="Itens" />}
                   renderValue={(selected) => selected.map(item => item.name).join(', ')}
                   MenuProps={MenuProps}
-                  sx={{ borderColor: "#6750A4", color: '#6750A4' }}
+                  sx={{ color: 'black' }}
               >
                   {itens.map((item) => (
-                    <MenuItem key={item.id} value={item} style={{ backgroundColor: "#6750A4" }} >
-                        <Checkbox checked={itens.some(selectedItem => selectedItem.id === item.id)} />
-                        <ListItemText primary={item.name} sx={{ color:'white' }} />
+                    <MenuItem key={item.id} value={item} style={ cor_option(item) } >
+                        <Checkbox color="titulos" checked={selectedItens.some(selectedItem => selectedItem.id === item.id)} />
+                        <ListItemText primary={item.name} sx={{}} />
                     </MenuItem>
                   ))}
               </Select>
