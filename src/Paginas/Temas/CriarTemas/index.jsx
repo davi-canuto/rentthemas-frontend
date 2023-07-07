@@ -55,9 +55,6 @@ export default function MyApp() {
     setPrice(event);
   };
 
-  const handleItens = (event) => {
-    setItens(event.target.value);
-  };
 
   const handleSelectedItens = (event) => {
     setSelectedItens(event.target.value);
@@ -73,9 +70,9 @@ export default function MyApp() {
         "name": nome,
         "color": cor,
         "price": price,
-        "itens": itens.map(item => item.id)
+        "itens": selectedItens.map(item => item.id)
       };
-      const response = props ? api.put(`themes/${props.id}/`, data) : await api.post('themes/', data);
+      const response = props ? await api.put(`themes/${props.id}/`, data) : await api.post('themes/', data);
       routeChangeBack();
     } catch (error) {
       console.error(error);
@@ -93,6 +90,17 @@ export default function MyApp() {
     return {
       backgroundColor: bg,
       color: text
+    }
+  }
+
+  function get_border(item) {
+    let border_color = '#6750A4'
+    if (selectedItens.includes(item)){
+      border_color = "white"
+    }
+    return { 
+      border:1, 
+      borderBlockColor: border_color
     }
   }
 
@@ -156,10 +164,10 @@ export default function MyApp() {
         />
         <Box justifyContent="space-between" sx={{ marginY: 2 }}>
             <FormControl sx={{ width: '100%' }}>
-              <InputLabel style={{ color:'#6750A4' }} id="demo-multiple-checkbox-label">Itens</InputLabel>
+              <InputLabel style={{ color:'#6750A4' }} id="select-itens">Itens</InputLabel>
               <Select
-                  labelId="demo-multiple-checkbox-label"
-                  id="demo-multiple-checkbox"
+                  labelId="select-itens"
+                  id="id-select-itens"
                   multiple
                   value={selectedItens}
                   color="inputs"
@@ -170,9 +178,8 @@ export default function MyApp() {
                   sx={{ color: 'black' }}
               >
                   {itens.map((item) => (
-                    <MenuItem key={item.id} value={item} style={ cor_option(item) } >
-                        <Checkbox color="titulos" checked={selectedItens.some(selectedItem => selectedItem.id === item.id)} />
-                        <ListItemText primary={item.name} sx={{}} />
+                    <MenuItem sx={ get_border(item) } key={item.id} value={item} style={ cor_option(item) } >
+                        <ListItemText primary={item.name} sx={{ padding: 0.5 }} />
                     </MenuItem>
                   ))}
               </Select>
