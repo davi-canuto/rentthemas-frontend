@@ -4,8 +4,8 @@ import "./index.css";
 import Navbar from "./Layout/NavBar/Navbar.jsx";
 import ListarItens from "./Paginas/Itens/ListarItens/component.jsx";
 import CriarItens from "./Paginas/Itens/CriarItens/component.jsx";
-import ListarClientes from "./Paginas/Clientes/ListarClientes/index.jsx";
-// import CriarClientes from "./Paginas/Clientes/CriarClientes/component.jsx";
+import ListarClientes from "./Paginas/Clientes/ListarClientes/component.jsx";
+import CriarClientes from "./Paginas/Clientes/CriarClientes/component.jsx";
 
 import ListarTemas from "./Paginas/Temas/ListarTemas/index.jsx";
 import CriarTemas from "./Paginas/Temas/CriarTemas/index.jsx";
@@ -28,7 +28,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/itens/criar" element={<CriarItens />} />
           <Route path="/itens/editar" element={<CriarItens />} />
           <Route path="/clientes" element={<ListarClientes />} />
-          {/* <Route path="/clientes/criar" element={<CriarClientes />} /> */}
+          <Route path="/clientes/criar" element={<CriarClientes />} />
+          <Route path="/clientes/editar" element={<CriarClientes />} />
           <Route path="/alugueis" element={<ListarAlugueis />} />
           {/* <Route path="/alugueis/criar" element={<CriarAlugueis />} /> */}
           <Route path="/temas" element={<ListarTemas />} />
