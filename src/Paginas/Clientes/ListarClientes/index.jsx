@@ -66,7 +66,7 @@ export default function Index() {
     <ThemeProvider theme={theme}>
       <Container sx={{ width: "900px" }}>
         <Typography mb={2} variant="h3">
-          Itens
+          Clientes
         </Typography>
         <Grid container justifyContent={"space-between"} ml={1.8} p={1}>
           <TextField
@@ -79,7 +79,7 @@ export default function Index() {
             }}
           />
           <Box mr={3}>
-            <Botao variant="contained" onClick={mudarRota} label="Novo Item" />
+            <Botao variant="contained" onClick={mudarRota} label="Novo Cliente" />
           </Box>
         </Grid>
         <Box

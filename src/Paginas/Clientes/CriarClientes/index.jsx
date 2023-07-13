@@ -82,7 +82,7 @@ export default function MyApp() {
       <div>
         <InputTexto label="Nome" value={nome} onChange={handleNome} />
         <InputTexto label="Email" value={email} onChange={handleEmail} />
-        <InputTexto
+        {/* <InputTexto
           label="Telefone 1"
           value={telefone1}
           onChange={handleTelefone1}
@@ -91,7 +91,7 @@ export default function MyApp() {
           label="Telefone 2"
           value={telefone2}
           onChange={handleTelefone2}
-        />
+        /> */}
         <Box display="flex" justifyContent="space-between">
           <Botao variant="outlined" onClick={routeChangeBack} label="Voltar" />
           <Botao

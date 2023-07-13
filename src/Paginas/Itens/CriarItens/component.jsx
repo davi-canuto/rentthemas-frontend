@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 
 function App() {
   return (
-    <Box>
+    <Box minWidth={'40vh'} maxWidth={'60vh'}>
       <CriarItens />
     </Box>
   );
