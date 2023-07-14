@@ -40,7 +40,6 @@ export default function Index() {
     }
   }
 
-
   const dadosFiltrados = temas.filter((tema) => {
       if (tema.name && tema.name.toLowerCase().includes(filtro.toLowerCase())){
         return tema
