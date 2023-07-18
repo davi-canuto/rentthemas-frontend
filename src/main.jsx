@@ -11,7 +11,7 @@ import ListarTemas from "./Paginas/Temas/ListarTemas/index.jsx";
 import CriarTemas from "./Paginas/Temas/CriarTemas/index.jsx";
 
 import ListarAlugueis from "./Paginas/Alugueis/ListarAlugueis/index.jsx";
-// import CriarAlugueis from "./Paginas/Alugueis/CriarAlugueis/index.jsx";
+import CriarAlugueis from "./Paginas/Alugueis/CriarAluguel/index.jsx";
 
 import Dashboard from "./Paginas/Dashboard/index.jsx";
 import { Container } from "@mui/material";
@@ -31,7 +31,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/clientes/criar" element={<CriarClientes />} />
           <Route path="/clientes/editar" element={<CriarClientes />} />
           <Route path="/alugueis" element={<ListarAlugueis />} />
-          {/* <Route path="/alugueis/criar" element={<CriarAlugueis />} /> */}
+          <Route path="/alugueis/criar" element={<CriarAlugueis />} />
+          <Route path="/alugueis/editar" element={<CriarAlugueis />} />
           <Route path="/temas" element={<ListarTemas />} />
           <Route path="/temas/criar" element={<CriarTemas />} />
           <Route path="/temas/editar" element={<CriarTemas />} />
