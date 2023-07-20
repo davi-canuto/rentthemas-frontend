@@ -1,4 +1,4 @@
-import InputTexto from "../../../Componentes/Inputs/InputTexto.jsx";
+import { setHours, setMinutes } from 'date-fns';import InputTexto from "../../../Componentes/Inputs/InputTexto.jsx";
 import { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../../Temas.jsx";
@@ -32,9 +32,9 @@ const MenuProps = {
   },
 };
 export default function MyApp() {
-  const [inicio, setInicio] = useState("");
-  const [fim, setFim] = useState("");
-  const [data, setData] = useState("");
+  const [inicio, setInicio] = useState(setMinutes(setHours(new Date(), 12), 0));
+  const [fim, setFim] = useState(setMinutes(setHours(new Date(), 15), 0));
+  const [data, setData] = useState(setMinutes(setHours(new Date(), 12), 0));
   const [endereco, setEndereco] = useState("");
   const [bairro, setBairro] = useState("");
   const [numero, setNumero] = useState("");
@@ -50,7 +50,7 @@ export default function MyApp() {
   const props = location.state ? location.state : null;
 
   const routeChangeBack = () => {
-    let path = `/clientes`;
+    let path = `/alugueis`;
     navigate(path);
   };
 
@@ -59,6 +59,7 @@ export default function MyApp() {
   };
 
   const handleFim = (event) => {
+    console.log('sim')
     setFim(event);
   };
 
@@ -170,6 +171,8 @@ export default function MyApp() {
                   renderDay={(day, _value) => format(day, "dd/MM/yyyy")}
                   format="dd/MM/y"
                   sx={{ width: "100%" }}
+                  value={data}
+                  onChange={handleData}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -181,6 +184,8 @@ export default function MyApp() {
                   ampm={false}
                   label="Início"
                   sx={{ width: "100%" }}
+                  value={inicio}
+                  onChange={handleInicio}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -188,7 +193,13 @@ export default function MyApp() {
           <Grid item xs={4}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DemoContainer components={["TimePicker"]}>
-                <TimePicker ampm={false} label="Fim" sx={{ width: "100%" }} />
+                <TimePicker
+                  ampm={false}
+                  label="Fim"
+                  sx={{ width: "100%" }}
+                  value={fim}
+                  onChange={handleFim}
+                />
               </DemoContainer>
             </LocalizationProvider>
           </Grid>
