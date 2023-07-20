@@ -11,7 +11,7 @@ import ListarTemas from "./Paginas/Temas/ListarTemas/index.jsx";
 import CriarTemas from "./Paginas/Temas/CriarTemas/index.jsx";
 
 import ListarAlugueis from "./Paginas/Alugueis/ListarAlugueis/index.jsx";
-import CriarAlugueis from "./Paginas/Alugueis/CriarAluguel/index.jsx";
+import CriarAlugueis from "./Paginas/Alugueis/CriarAluguel/component.jsx";
 
 import Dashboard from "./Paginas/Dashboard/index.jsx";
 import { Container } from "@mui/material";
