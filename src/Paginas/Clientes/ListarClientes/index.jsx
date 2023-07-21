@@ -23,14 +23,14 @@ export default function Index() {
     navigate("/clientes/criar");
   };
 
-  const editarItem = (id) => {
+  const editarCliente = (id) => {
     const props = {
       id: id,
     };
     navigate("/clientes/editar", { state: props });
   };
 
-  async function deletarItem(id) {
+  async function deletarCliente(id) {
     try {
       const response = await api.delete(`clients/${id}/`);
       const clients = await api.get("clients/");
@@ -82,23 +82,17 @@ export default function Index() {
             <Botao variant="contained" onClick={mudarRota} label="Novo Cliente" />
           </Box>
         </Grid>
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent={"space-between"}
-          m={1.3}
-          p={1}
-          sx={{ backgroundColor: "#f8eeee", borderRadius: 1, height: "38px" }}
-        >
-          <Typography ml={2} variant="subtitle1">
-            Nome
-          </Typography>
-          <Box>
-            <Typography mr={2} variant="subtitle1">
-              Ações
-            </Typography>
-          </Box>
-        </Box>
+        <Grid container alignItems="center"  m={1.3} p={1} sx={{ backgroundColor: "#f8eeee", borderRadius: 1 }}>
+          <Grid item xs={3.3}>
+            <Typography ml={2} variant="subtitle1">Nome</Typography>
+          </Grid>
+          <Grid item xs={6.5}>
+            <Typography  variant="subtitle1">Email</Typography>
+          </Grid>  
+          <Grid item xs={1}>
+            <Typography  variant="subtitle1">Ações</Typography>
+          </Grid> 
+        </Grid>
         <Box
           sx={{
             display: "flex",
@@ -109,38 +103,20 @@ export default function Index() {
           }}
         >
           {dadosFiltrados.map((elemento) => (
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent={"space-between"}
-              boxShadow={3}
-              key={elemento.id}
-              m={1.3}
-              p={1}
-              sx={{
-                backgroundColor: "#f8eeee",
-                borderRadius: 1,
-                height: "38px",
-              }}
-            >
-              <Typography ml={2} variant="subtitle1">
-                {elemento.name}
-              </Typography>
-              <Box mt={0.6}>
-                <EditIcon
-                  onClick={() => editarItem(elemento.id)}
-                  style={{
-                    color: "#3B1D70",
-                    marginRight: "10px",
-                    cursor: "pointer",
-                  }}
-                />
-                <DeleteIcon
-                  onClick={() => deletarItem(elemento.id)}
-                  style={{ color: "red", cursor: "pointer" }}
-                />
-              </Box>
-            </Box>
+            <Grid container alignItems="center"  boxShadow={3} key={elemento.id} m={1.3} p={1} sx={{ backgroundColor: "#f8eeee", borderRadius: 1 }}>
+              <Grid item xs={3.3}>
+                <Typography ml={2} variant="subtitle1">{elemento.name}</Typography>
+              </Grid>
+              <Grid item xs={6.5}>
+              <Typography variant="subtitle1">{elemento.email}</Typography>
+              </Grid>
+              <Grid item xs={2} ml={1}>
+                <Box mt={0.6}>
+                  <EditIcon onClick={() => editarCliente(elemento.id)} style={{ color: '#3B1D70', marginRight:'10px', cursor: 'pointer' }} />
+                  <DeleteIcon onClick={() => deletarCliente(elemento.id)} style={{ color: 'red', cursor: 'pointer' }} />
+                </Box>
+              </Grid>      
+            </Grid>
           ))}
         </Box>
       </Container>

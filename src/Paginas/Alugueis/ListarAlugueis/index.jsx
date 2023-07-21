@@ -36,7 +36,7 @@ export default function Index() {
 
   async function deletarAluguel(id) {
     try {
-      const response = await api.delete(`clients/${id}/`);
+      const response = await api.delete(`rents/${id}/`);
       const alugueis = await api.get("rents/");
       setAlugueis(alugueis.data);
     } catch (error) {
