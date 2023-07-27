@@ -1,4 +1,5 @@
-import { setHours, setMinutes } from 'date-fns';import InputTexto from "../../../Componentes/Inputs/InputTexto.jsx";
+import { setHours, setMinutes } from "date-fns";
+import InputTexto from "../../../Componentes/Inputs/InputTexto.jsx";
 import { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../../../Temas.jsx";
@@ -34,8 +35,11 @@ const MenuProps = {
 export default function MyApp() {
   const [inicio, setInicio] = useState(setMinutes(setHours(new Date(), 12), 0));
   const [fim, setFim] = useState(setMinutes(setHours(new Date(), 15), 0));
-  const [data, setData] = useState(setMinutes(setHours(new Date(), 12), 0));
+  const [dataAtual, setDataAtual] = useState(
+    setMinutes(setHours(new Date(), 12), 0)
+  );
   const [rua, setRua] = useState("");
+  const [nome, setNome] = useState("");
   const [bairro, setBairro] = useState("");
   const [numero, setNumero] = useState("");
   const [cidade, setCidade] = useState("");
@@ -59,16 +63,19 @@ export default function MyApp() {
   };
 
   const handleFim = (event) => {
-    console.log('sim')
+    console.log("sim");
     setFim(event);
   };
 
-  const handleData = (event) => {
-    setData(event);
+  const handleDataAtual = (event) => {
+    setDataAtual(event);
+  };
+
+  const handleNome = (event) => {
+    setNome(event);
   };
 
   const handleCliente = (event) => {
-    console.log(event);
     setCliente(event);
   };
 
@@ -102,23 +109,33 @@ export default function MyApp() {
 
   async function submit() {
     try {
-      if(props) {
-        api.put(`clients/${props.id}/`, data)
-      } else {
-        await api.post("clients/", data);
-      }
+      const address_data = {
+        street: rua,
+        number: numero,
+        complement: complemento,
+        district: bairro,
+        city: cidade,
+        state: estado,
+      };
+
+      const address_response = await api.post("Address/", address_data);
+      const address = address_response.data.id;
 
       const data = {
-        date: data,
+        name: nome,
+        date: dataAtual,
         start_hours: inicio,
         end_hours: fim,
         client: cliente,
         theme: tema,
-        address: address
+        address: address,
       };
+      console.log(data);
+
       const response = props
         ? api.put(`clients/${props.id}/`, data)
         : await api.post("clients/", data);
+
       routeChangeBack();
     } catch (error) {
       console.error(error);
@@ -135,12 +152,11 @@ export default function MyApp() {
       if (props) {
         try {
           const response = await api.get(`rents/${props.id}/`);
-          setData(response.data.date);
+          dataAtual(response.data.date);
           setInicio(response.data.start_hours);
           setFim(response.data.end_hours);
           setCliente(response.data.client);
           setTema(response.data.theme);
-          setAddress(response.data.address);
         } catch (error) {
           console.error(error);
         }
@@ -172,8 +188,8 @@ export default function MyApp() {
                   renderDay={(day, _value) => format(day, "dd/MM/yyyy")}
                   format="dd/MM/y"
                   sx={{ width: "100%" }}
-                  value={data}
-                  onChange={handleData}
+                  value={dataAtual}
+                  onChange={handleDataAtual}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -250,10 +266,13 @@ export default function MyApp() {
           </Grid>
           <Grid item xs={6}>
             <InputTexto
-              label="Rua"
-              value={rua}
-              onChange={handleRua}
+              label="Nome do aluguel"
+              value={nome}
+              onChange={handleNome}
             />
+          </Grid>
+          <Grid item xs={6}>
+            <InputTexto label="Rua" value={rua} onChange={handleRua} />
           </Grid>
           <Grid item xs={6}>
             <InputTexto label="Bairro" value={bairro} onChange={handleBairro} />
