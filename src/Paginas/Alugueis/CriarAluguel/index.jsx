@@ -35,7 +35,7 @@ export default function MyApp() {
   const [inicio, setInicio] = useState(setMinutes(setHours(new Date(), 12), 0));
   const [fim, setFim] = useState(setMinutes(setHours(new Date(), 15), 0));
   const [data, setData] = useState(setMinutes(setHours(new Date(), 12), 0));
-  const [endereco, setEndereco] = useState("");
+  const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
   const [numero, setNumero] = useState("");
   const [cidade, setCidade] = useState("");
@@ -76,8 +76,8 @@ export default function MyApp() {
     setTema(event);
   };
 
-  const handleEndereco = (event) => {
-    setEndereco(event);
+  const handleRua = (event) => {
+    setRua(event);
   };
 
   const handleBairro = (event) => {
@@ -102,20 +102,19 @@ export default function MyApp() {
 
   async function submit() {
     try {
+      if(props) {
+        api.put(`clients/${props.id}/`, data)
+      } else {
+        await api.post("clients/", data);
+      }
+
       const data = {
         date: data,
         start_hours: inicio,
         end_hours: fim,
         client: cliente,
         theme: tema,
-        address: {
-          address: endereco,
-          bairro: bairro,
-          complemento: complemento,
-          numero: numero,
-          cidade: cidade,
-          estado: estado,
-        },
+        address: address
       };
       const response = props
         ? api.put(`clients/${props.id}/`, data)
@@ -132,6 +131,7 @@ export default function MyApp() {
       setClientes(clientes.data);
       const temas = await api.get("themes/");
       setTemas(temas.data);
+
       if (props) {
         try {
           const response = await api.get(`rents/${props.id}/`);
@@ -140,6 +140,7 @@ export default function MyApp() {
           setFim(response.data.end_hours);
           setCliente(response.data.client);
           setTema(response.data.theme);
+          setAddress(response.data.address);
         } catch (error) {
           console.error(error);
         }
@@ -249,9 +250,9 @@ export default function MyApp() {
           </Grid>
           <Grid item xs={6}>
             <InputTexto
-              label="Endereço"
-              value={endereco}
-              onChange={handleEndereco}
+              label="Rua"
+              value={rua}
+              onChange={handleRua}
             />
           </Grid>
           <Grid item xs={6}>
