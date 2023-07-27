@@ -13,7 +13,7 @@ import CriarTemas from "./Paginas/Temas/CriarTemas/index.jsx";
 import ListarAlugueis from "./Paginas/Alugueis/ListarAlugueis/index.jsx";
 import CriarAlugueis from "./Paginas/Alugueis/CriarAluguel/component.jsx";
 
-import Dashboard from "./Paginas/Dashboard/index.jsx";
+import Dashboard from "./Paginas/Dashboard/component.jsx";
 import { Container } from "@mui/material";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
