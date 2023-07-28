@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 
 function App() {
   return (
-    <Box>
+    <Box width={{ width: '150vh'}}>
       <Index />
     </Box>
   );
