@@ -97,7 +97,7 @@ export default function Index() {
   return (
     <ThemeProvider theme={theme}>
       <Container sx={{ width: "100%" }}>
-        <Typography mb={2} mt={15} variant="h3">
+        <Typography mb={2} mt={13} variant="h3">
           Temas Populares
         </Typography>
         <Grid
